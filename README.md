@@ -4,6 +4,14 @@ A package to help build customisable timelines in Flutter.
 
 ---
 
+I add dashed line style in this fork.
+
+<details><summary>Click to view screenshot</summary>
+
+![dashed_line_style](https://raw.githubusercontent.com/aJIEw/timeline_tile/master/screenshots/dashed_line.png)
+
+</details>
+
 ## Example
 
 - You can access the [example](https://github.com/JHBitencourt/timeline_tile/tree/master/example) project for a Timeline Showcase.

@@ -21,6 +21,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+dependency_overrides:
+  # fix <Member not found: 'packageRoot'.> issue.
+  platform: ^3.1.0
+
 flutter:
 
   uses-material-design: true

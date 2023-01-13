@@ -363,9 +363,9 @@ class _TimelinePainter extends CustomPainter {
     this.isFirst = false,
     this.isLast = false,
     required IndicatorStyle indicatorStyle,
-    required LineStyle beforeLineStyle,
-    required LineStyle afterLineStyle,
-  })   : beforeLinePaint = Paint()
+    required this.beforeLineStyle,
+    required this.afterLineStyle,
+  })  : beforeLinePaint = Paint()
           ..color = beforeLineStyle.color
           ..strokeWidth = beforeLineStyle.thickness,
         afterLinePaint = Paint()
@@ -427,8 +427,12 @@ class _TimelinePainter extends CustomPainter {
   /// Used to paint the top line
   final Paint beforeLinePaint;
 
+  final LineStyle beforeLineStyle;
+
   /// Used to paint the bottom line
   final Paint afterLinePaint;
+
+  final LineStyle afterLineStyle;
 
   /// Used to paint the indicator
   final Paint? indicatorPaint;
@@ -541,7 +545,9 @@ class _TimelinePainter extends CustomPainter {
                   : position.firstSpace.end,
               centerAxis,
             );
-      canvas.drawLine(beginTopLine, endTopLine, beforeLinePaint);
+      // canvas.drawLine(beginTopLine, endTopLine, beforeLinePaint);
+      _drawLine(
+          canvas, beginTopLine, endTopLine, beforeLinePaint, beforeLineStyle);
     }
 
     if (!isLast) {
@@ -561,7 +567,9 @@ class _TimelinePainter extends CustomPainter {
       final endBottomLine = axis == TimelineAxis.vertical
           ? Offset(centerAxis, position.secondSpace.end)
           : Offset(position.secondSpace.end, centerAxis);
-      canvas.drawLine(beginBottomLine, endBottomLine, afterLinePaint);
+      // canvas.drawLine(beginBottomLine, endBottomLine, afterLinePaint);
+      _drawLine(canvas, beginBottomLine, endBottomLine, afterLinePaint,
+          afterLineStyle);
     }
   }
 
@@ -578,7 +586,9 @@ class _TimelinePainter extends CustomPainter {
         axis == TimelineAxis.vertical ? endTopLine.dy : endTopLine.dx;
     // if the line size is less or equal than 0, the line shouldn't be rendered
     if (lineSize > 0) {
-      canvas.drawLine(beginTopLine, endTopLine, beforeLinePaint);
+      // canvas.drawLine(beginTopLine, endTopLine, beforeLinePaint);
+      _drawLine(
+          canvas, beginTopLine, endTopLine, beforeLinePaint, beforeLineStyle);
     }
   }
 
@@ -595,7 +605,32 @@ class _TimelinePainter extends CustomPainter {
         : endBottomLine.dx - beginBottomLine.dx;
     // if the line size is less or equal than 0, the line shouldn't be rendered
     if (lineSize > 0) {
-      canvas.drawLine(beginBottomLine, endBottomLine, afterLinePaint);
+      // canvas.drawLine(beginBottomLine, endBottomLine, afterLinePaint);
+      _drawLine(canvas, beginBottomLine, endBottomLine, afterLinePaint,
+          afterLineStyle);
+    }
+  }
+
+  void _drawLine(Canvas canvas, Offset start, Offset end, Paint paint,
+      LineStyle lineStyle) {
+    if (lineStyle.dashed) {
+      _drawDashedLine(canvas, start, end, paint, lineStyle.dashLength,
+          lineStyle.dashStride);
+    } else {
+      canvas.drawLine(start, end, paint);
+    }
+  }
+
+  void _drawDashedLine(Canvas canvas, Offset start, Offset end, Paint paint,
+      double dashLength, double stride) {
+    var distance = (end - start).distance;
+    while (distance > 0) {
+      final remaining = end - start;
+      final direction = remaining / remaining.distance;
+      final next = start + (direction * dashLength);
+      canvas.drawLine(start, next, paint);
+      start = start + (direction * stride);
+      distance -= stride;
     }
   }
 }

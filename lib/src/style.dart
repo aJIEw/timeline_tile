@@ -85,6 +85,9 @@ class LineStyle {
   const LineStyle({
     this.color = Colors.grey,
     this.thickness = 4,
+    this.dashed = false,
+    this.dashLength = 8,
+    this.dashStride = 16,
   });
 
   /// The color used to paint the line. It defaults to ([Colors.grey]).
@@ -93,4 +96,11 @@ class LineStyle {
   /// The thickness from the line. It can't be bigger than ([IndicatorStyle.width])
   /// and defaults to 4.
   final double thickness;
+
+  /// Draw dashed line instead of solid line.
+  final bool dashed;
+
+  final double dashLength;
+
+  final double dashStride;
 }

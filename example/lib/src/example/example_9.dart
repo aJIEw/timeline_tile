@@ -6,7 +6,7 @@ import '../showcase_timeline.dart';
 const example9 = Example(
   name: "Customize the tile's line.",
   description:
-      'With LineStyle you can customize both beforeLine and afterLine.',
+  'With LineStyle you can customize both beforeLine and afterLine.',
   code: '''
 return Container(
   color: Colors.white,
@@ -89,15 +89,16 @@ class Example9Vertical extends StatelessWidget {
                   isFirst: true,
                   indicatorStyle: const IndicatorStyle(
                     width: 20,
-                    color: Colors.purple,
+                    color: Colors.transparent,
                   ),
                   beforeLineStyle: const LineStyle(
-                    color: Colors.purple,
-                    thickness: 6,
+                    color: Colors.grey,
+                    thickness: 2.5,
+                    dashed: true,
                   ),
                   startChild: Container(
                     constraints: const BoxConstraints(
-                      minHeight: 120,
+                      minHeight: 125,
                     ),
                     color: Colors.amberAccent,
                   ),
@@ -105,28 +106,30 @@ class Example9Vertical extends StatelessWidget {
                 TimelineTile(
                   alignment: TimelineAlign.center,
                   beforeLineStyle: const LineStyle(
-                    color: Colors.purple,
-                    thickness: 6,
+                    color: Colors.grey,
+                    thickness: 2.5,
+                    dashed: true,
                   ),
                   afterLineStyle: const LineStyle(
-                    color: Colors.deepOrange,
-                    thickness: 6,
+                    color: Colors.blue,
+                    thickness: 2.5,
                   ),
                   indicatorStyle: const IndicatorStyle(
-                    width: 20,
-                    color: Colors.cyan,
+                    width: 10,
+                    color: Colors.blueGrey,
+                    drawGap: true,
                   ),
                 ),
                 TimelineTile(
                   alignment: TimelineAlign.center,
                   isLast: true,
                   beforeLineStyle: const LineStyle(
-                    color: Colors.deepOrange,
-                    thickness: 6,
+                    color: Colors.blue,
+                    thickness: 2.5,
                   ),
                   indicatorStyle: const IndicatorStyle(
                     width: 20,
-                    color: Colors.red,
+                    color: Colors.transparent,
                   ),
                   endChild: Container(
                     constraints: const BoxConstraints(
